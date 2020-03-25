@@ -127,6 +127,10 @@ static void pam_callback(struct state *st,
 	 * Xauth_abort() can't get into a race.
 	 */
 	if (st != NULL) {
+
+libreswan_log("PAM: #%lu: completed for user '%s' with address '%s' ",
+			      xauth->serialno, xauth->ptarg.name,  xauth->ptarg.framed_ip_address);
+
 		st->st_xauth = NULL; /* all done */
 		libreswan_log("PAM: #%lu: completed for user '%s' with status %s",
 			      xauth->serialno, xauth->ptarg.name,
@@ -149,6 +153,10 @@ static int pam_child(void *arg)
 		    xauth->serialno,
 		    xauth->ptarg.name));
 	bool success = do_pam_authentication(&xauth->ptarg);
+
+libreswan_log("PAM: #%lu: PAM-process completed for user '%s' with address '%s' ",
+			      xauth->serialno, xauth->ptarg.name,  xauth->ptarg.framed_ip_address);
+
 	DBG(DBG_XAUTH,
 	    DBG_log("PAM: #%lu: PAM-process completed for user '%s' with result %s",
 		    xauth->serialno, xauth->ptarg.name,

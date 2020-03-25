@@ -24,6 +24,7 @@ struct pam_thread_arg {
 	so_serial_t st_serialno;
 	unsigned long c_instance_serial;
 	const char *atype;  /* string XAUTH or IKEv2 */
+	const char *framed_ip_address; /* store Framed-IP-Address */
 };
 
 extern bool do_pam_authentication(struct pam_thread_arg *arg);

@@ -168,6 +168,11 @@ bool do_pam_authentication(struct pam_thread_arg *arg)
 			break;
 		log_pam_step(arg, what);
 
+		/* get attribute Framed-IP-Address from environment */
+		arg->framed_ip_address = clone_str(pam_getenv(pamh, "Framed-IP-Address"), "");
+
+		//session control:  check pam_open_session  and pam_close_session
+
 		/* success! */
 		pam_end(pamh, PAM_SUCCESS);
 		return TRUE;
